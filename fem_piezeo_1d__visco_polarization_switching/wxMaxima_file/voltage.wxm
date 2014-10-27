@@ -1,0 +1,22 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 13.04.2 ] */
+
+/* [wxMaxima: comment start ]
+polarization switching
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+if the volatage is alternating between 100kV and -100kV
+if the lenght is 10 mm then
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+100/10;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+the electric field should become 10 kv/mm
+   [wxMaxima: comment end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

@@ -1,0 +1,48 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 13.04.2 ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);load (f90);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+Macaulay:(  abs((abs(e/ec)-1)  )+(abs(e/ec)-1))/2;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+phi:(Macaulay)^(1+m)*ec/eta/(1+m);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff_phi:diff(phi,e);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+diff_phi:(ec*((e*(abs(e)/abs(ec)-1))/(abs(e)*abs(ec)*abs(abs(e)/abs(ec)-1))+e/(abs(e)*abs(ec)))*(abs(abs(e)/abs(ec)-1)+abs(e)/abs(ec)-1)^m*2^(-m-1))/eta;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f90 (phi);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f90 (diff_phi);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+ec:1.0;
+m:2.0;
+eta:0.01 ;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: comment start ]
+plot2d(phi,[e,-100,100]);
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+plot2d(phi,[e,-100,100]);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

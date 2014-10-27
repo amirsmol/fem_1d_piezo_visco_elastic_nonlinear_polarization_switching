@@ -1,0 +1,84 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 13.04.2 ] */
+
+/* [wxMaxima: comment start ]
+This is for polarization switching
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+dimen:1$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Introducting the invariant
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+load ("nchrpl") $
+II[1]:epsilon$
+II[2]:epsilon*epsilon$
+II[3]:epsilon*a*a$
+II[4]:a*epsilon*epsilon*a$
+II[5]:(elect)*elect$
+II[6]:a*(elect)$
+II[7]:a*(epsilon)*elect$
+II[8]: sqrt(pr*pr)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: title   start ]
+
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: title   start ]
+Introducting the energy
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: input   start ] */
+psi[1]:lambda/2*II[1]*II[1]+mu*II[2]+alpha1*II[4]+alpha2*II[3]*II[3]+alpha3*II[1]*II[3]$
+psi[2]:(gamma1*II[5]+gamma2*II[6]*II[6])$ 
+psi[3]:(beta1*II[1]*II[6]+beta2*II[3]*II[6]+beta3*II[7])*II[8]/pr_sat$
+psi[4]:-II[6]*II[8]$
+psi[5]:1/c*(II[8]*atan(II[8]/pr_sat)+1/2*pr_sat*log (1-(II[8]/pr_sat))^2)$
+psi_T:psi[1]+psi[2]+psi[3]+psi[4]+psi[5]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Taking derivitive and defining the sonstitutive equation
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+elec_disp:-diff(psi_T,elect);
+stress:diff(psi_T,epsilon);
+e_tilt:diff(psi_T,pr);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+load (f90)$
+f90(e_tilt);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+coeff(e_tiltex,pr);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f90(factor(coeff(expand(elec_disp),elect)));
+f90(factor(coeff(expand(elec_disp),epsilon)));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+f90(factor(coeff(expand(stress),elect)));
+f90(coeff(expand(stress),epsilon));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Experimenting with polarization
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: comment start ]
+
+   [wxMaxima: comment end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$

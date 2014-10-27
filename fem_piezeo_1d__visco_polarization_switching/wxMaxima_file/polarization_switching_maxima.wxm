@@ -1,0 +1,132 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 13.04.2 ] */
+
+/* [wxMaxima: comment start ]
+This is for polarization switching
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+dimen:3$
+
+I:matrix([1,0,0],[0,1,0],[0,0,1])$
+CORRDINATE:[x[1],x[3],x[3]]$
+strain:matrix([ epsilon[1,1] , epsilon[1,2] , epsilon[1,3] ],[ epsilon[2,1] , epsilon[2,2] , epsilon[2,3] ],[ epsilon[3,1] , epsilon[3,2] , epsilon[3,3] ])$
+electric_field:[el[1],el[2],el[3]]$
+direction_vector:[direc_a[1],direc_a[2],direc_a[3]]$
+polarization_vecotor:[pr[1],pr[2],pr[3]]$
+pr_norm:sqrt(polarization_vecotor.polarization_vecotor)$
+el_norm:sqrt(electric_field.electric_field)$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Introducting the invariant
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+load ("nchrpl") $
+II[1]:mattrace(strain)$
+II[2]:mattrace(strain.strain)$
+II[3]:(direction_vector.strain).direction_vector$
+II[4]:(direction_vector).(strain.strain).(direction_vector)$
+II[5]:(electric_field).electric_field$
+II[6]:(electric_field).direction_vector$
+II[7]:(direction_vector).(strain).electric_field$
+II[8]:pr_norm$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: title   start ]
+The polarization evolution function
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: input   start ] */
+electric_force : el_norm/ec-1$
+phi_n : (1/2)*((electric_force))^(1+m)*ec/(eta*(1+m))$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: title   start ]
+Introducting the energy
+   [wxMaxima: title   end   ] */
+
+/* [wxMaxima: input   start ] */
+psi[1]:lambda/2*II[1]*II[1]+mu*II[2]+alpha1*II[4]+alpha2*II[3]*II[3]+alpha3*II[1]*II[3]$
+psi[2]:(gamma1*II[5]+gamma2*II[6]*II[6])$ 
+psi[3]:(beta1*II[1]*II[6]+beta2*II[3]*II[6]+beta3*II[7])*II[8]/pr_sat$
+psi[4]:-II[6]*II[8]$
+psi[5]:1/c*(II[8]*arctan(II[8]/pr_sat)+1/2*pr_sat*ln(1-(II[8]/pr_sat))^2)$
+psi_T:psi[1]+psi[2]+psi[3]+psi[4]+psi[5]$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+Taking derivitive and defining the sonstitutive equation
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+for i : 1 thru 3 do
+elec_disp[i]: -diff(psi_T,el[i]);
+for j : 1 thru 3 do
+stress[i,j]:=diff(psi_T,strain[i,j]);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+the numercial values
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+c11 : 13.9$
+c12 : 7.78$
+c13 : 7.43$
+c33 : 11.3$
+c44 : 2.56$
+e31 : -6.98$
+e33 : 13.84$
+e15 : 13.44$
+eps_11 : 6$
+eps_33 : 5.47$
+lambda:c12$
+mu:(c11-c12)/2$
+alpha1:2*c44+c12-c11$
+alpha2:(c11+c33)/2-2*c44-c13$
+alpha3:c13-c12$
+beta1:-e31$
+beta2:-e33+2*e15+e31$
+beta3:-2*e15$
+gamma1:-eps_11/2$
+gamma2:(eps_11-eps_33)/2$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+ec:1;
+pr_sat:26e-2;
+eps_s_r:1e-3;
+c:1.0;
+eta:10e-2;
+m:2;
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: comment start ]
+results
+   [wxMaxima: comment end   ] */
+
+/* [wxMaxima: input   start ] */
+epsilon:matrix([1.3,0.095817132,0.450390135],[0.095817132,2.7,0.428125149],[0.450390135,0.428125149,3.5])*0$
+el:[.428125149,.248477806, .666666511]$
+direc_a:[0,1,0]*0$
+pr:[.428125149,.248477806, .666666511]*0$
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+for i : 1 thru 3 do
+print(ev(elec_disp[i]));
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+/* Maxima can't load/batch files which end with a comment! */
+"Created with wxMaxima"$
